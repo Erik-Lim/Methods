@@ -26,7 +26,7 @@ public class Authentication {
             jws = Jwts.parser()         // (1)
                     .setSigningKey(encodedSecret)         // (2)
                     .parseClaimsJws(token); // (3)
-            userId = jws.getBody().toString();
+            userId = jws.getBody().get("id").toString();
             return userId;
             // we can safely trust the JWT
         }

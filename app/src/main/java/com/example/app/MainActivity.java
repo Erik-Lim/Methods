@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         String test = Authentication.login(url, "lexiitest@test.com", "lexiitest");
 
         test = Authentication.parseJWT(test);
+        test = Authentication.getUserId(test, "this-is-a-really-long-secret-key-yeehaw");
 
         TextView tv = findViewById(R.id.tvText);
         tv.setText(test);
