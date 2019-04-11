@@ -3,6 +3,7 @@ package com.example.app;
 import android.util.Base64;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.jsonwebtoken.Claims;
@@ -19,12 +20,13 @@ public class Authentication {
 
         // return the UserID using the jwt
         final String userId;
+
         Jws<Claims> jws;
         try {
             jws = Jwts.parser()         // (1)
                     .setSigningKey(encodedSecret)         // (2)
                     .parseClaimsJws(token); // (3)
-            userId = jws.toString();
+            userId = jws.getBody().toString();
             return userId;
             // we can safely trust the JWT
         }
@@ -90,6 +92,22 @@ public class Authentication {
         }
         catch(Exception ex){
             return "errorr";
+        }
+    }
+
+    public static String parseJWT(String token)
+    {
+        try
+        {
+            JSONObject jsonObject = new JSONObject(token);
+            String parsedToken = jsonObject.get("token").toString();
+            parsedToken = parsedToken.substring(7);
+
+            return parsedToken;
+        }
+        catch (JSONException e)
+        {
+            return "error in parsing";
         }
     }
 }

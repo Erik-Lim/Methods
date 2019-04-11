@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = "https://trackdatcash.herokuapp.com/expenses/register";
+        String url = "https://trackdatcash.herokuapp.com/expenses/login";
         String userId = "5ca6da956d073a0017df78f6";
 
-        String test = AddUpdate.update(url, "randy", "15", "Food", "Jan", "16", "2019",
-                "none");
+        String test = Authentication.login(url, "lexiitest@test.com", "lexiitest");
+
+        test = Authentication.parseJWT(test);
+
         TextView tv = findViewById(R.id.tvText);
         tv.setText(test);
 
